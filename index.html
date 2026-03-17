@@ -86,7 +86,7 @@ footer{background:black;color:white;text-align:center;padding:20px;}
       <ul class="dropdown-content">
         <li><a href="#race2024">2024 Race</a></li>
         <li><a href="#results">Results</a></li>
-        <li><a href="#registration">Registration</a></li>
+        <li><a href="#donate">Donate</a></li>
       </ul>
     </li>
     <li><a href="#contact">Contact</a></li>
@@ -97,7 +97,7 @@ footer{background:black;color:white;text-align:center;padding:20px;}
 <section id="home">
 <h2>Welcome to The Cusworth 10K Charity Run</h2>
 <p>The Cusworth 10K is an annual charity event raising funds for local community projects. Join us to support a great cause, enjoy a fun run, and make a difference in your community!</p>
-<a href="#registration" class="btn">Register Now</a>
+<a href="#donate" class="btn">Donate Now</a>
 </section>
 
 <section id="race2024">
@@ -110,9 +110,10 @@ footer{background:black;color:white;text-align:center;padding:20px;}
 <p>See the winners and results from previous races.</p>
 </section>
 
-<section id="registration">
-<h2 class="section-title">Registration</h2>
-<p>Sign up for the next race here. Fill in your details and secure your spot!</p>
+<section id="donate">
+<h2 class="section-title">Donate</h2>
+<p>Thank you for supporting our charity! Your donation helps fund local community projects and events.</p>
+<a href="https://www.paypal.com/donate?hosted_button_id=YOURBUTTONID" target="_blank" class="btn">Donate via PayPal</a>
 </section>
 
 <section id="contact">
@@ -151,11 +152,11 @@ document.querySelectorAll('.dropdown-toggle').forEach(toggle=>{
   });
 });
 
-// Close dropdown clicking outside
+// Click outside closes dropdown
 document.addEventListener('click',()=>{document.querySelectorAll('.dropdown-content').forEach(menu=>menu.classList.remove('active'));});
 
-// Smooth scroll for all nav links
-document.querySelectorAll('nav a, .dropdown-content a').forEach(link=>{
+// Smooth scroll
+document.querySelectorAll('nav a, .dropdown-content a, .btn').forEach(link=>{
   link.addEventListener('click',e=>{
     const target=document.querySelector(link.getAttribute('href'));
     if(target){ target.scrollIntoView({behavior:'smooth'}); }
