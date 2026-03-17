@@ -5,188 +5,169 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Cusworth 10K</title>
   <style>
-    /* ===== General styling ===== */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; line-height: 1.6; scroll-behavior: smooth; overflow-x: hidden; }
+    * { box-sizing: border-box; margin:0; padding:0; }
+    body { font-family: Arial, sans-serif; line-height: 1.6; scroll-behavior: smooth; overflow-x:hidden; }
     a { text-decoration: none; }
 
-    /* ===== Header ===== */
     header {
       position: fixed;
-      top: 0;
-      width: 100%;
+      top:0; width:100%;
       background: linear-gradient(90deg, red, black, blue);
-      color: white;
-      padding: 30px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      color:white;
+      padding:30px 40px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
       transition: all 0.4s ease;
-      z-index: 100;
+      z-index:100;
       box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      flex-wrap: wrap;
+      flex-wrap:wrap;
     }
+    header h1 { font-size:28px; transition: font-size 0.4s ease; }
+    header.shrink { padding:10px 20px; opacity:0.95; }
+    header.shrink h1 { font-size:20px; }
 
-    header h1 { font-size: 28px; transition: font-size 0.4s ease; }
-    header.shrink { padding: 10px 20px; opacity: 0.95; }
-    header.shrink h1 { font-size: 20px; }
-
-    nav ul { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; }
-    nav a { color: white; font-weight: bold; padding: 6px 10px; border-radius: 4px; transition: background 0.3s; white-space: nowrap; }
+    nav ul { list-style:none; display:flex; gap:15px; flex-wrap:wrap; }
+    nav a { color:white; font-weight:bold; padding:6px 10px; border-radius:4px; transition:background 0.3s; white-space:nowrap; }
     nav a:hover { background: rgba(255,255,255,0.2); }
 
-    /* ===== Dropdown ===== */
-    .dropdown { position: relative; }
+    .dropdown { position:relative; }
     .dropdown-content {
-      display: none;
-      position: absolute;
-      background-color: white;
-      color: black;
-      top: 100%;
-      left: 0;
-      min-width: 140px;
-      border-radius: 6px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-      z-index: 1000;
+      display:none;
+      position:absolute;
+      background:white;
+      color:black;
+      top:100%;
+      left:0;
+      min-width:140px;
+      border-radius:6px;
+      overflow:hidden;
+      box-shadow:0 4px 8px rgba(0,0,0,0.2);
+      z-index:1000;
     }
-    .dropdown-content li { padding: 8px 10px; }
-    .dropdown-content a { color: black; display: block; }
+    .dropdown-content li { padding:8px 10px; }
+    .dropdown-content a { color:black; display:block; }
 
-    /* Desktop hover works */
-    @media(min-width: 769px){
-      .dropdown:hover .dropdown-content { display: block; }
+    /* Desktop hover */
+    @media(min-width:769px){
+      .dropdown:hover .dropdown-content { display:block; }
     }
+    /* Mobile toggle active */
+    .dropdown-content.active { display:block; }
 
-    /* Mobile active dropdown */
-    .dropdown-content.active { display: block; }
+    section { padding:100px 20px; max-width:1200px; margin:0 auto; }
+    #home { background:#f5f5f5; text-align:center; }
+    #home h2 { color:red; font-size:28px; margin-bottom:15px; }
+    #home p { max-width:600px; margin:0 auto; font-size:16px; }
+    .btn { display:inline-block; margin-top:20px; padding:10px 20px; background:black; color:white; font-weight:bold; border-radius:5px; transition:background 0.3s; }
+    .btn:hover { background:red; }
+    h2.section-title { text-align:center; color:black; margin-bottom:20px; font-size:26px; }
+    footer { background:black; color:white; text-align:center; padding:20px; }
 
-    /* ===== Sections ===== */
-    section { padding: 100px 20px; max-width: 1200px; margin: 0 auto; }
-    #home { background: #f5f5f5; text-align: center; }
-    #home h2 { color: red; font-size: 28px; margin-bottom: 15px; }
-    #home p { max-width: 600px; margin: 0 auto; font-size: 16px; }
-    .btn { display: inline-block; margin-top: 20px; padding: 10px 20px; background-color: black; color: white; font-weight: bold; border-radius: 5px; transition: background 0.3s; }
-    .btn:hover { background-color: red; }
-    h2.section-title { text-align: center; color: black; margin-bottom: 20px; font-size: 26px; }
-    footer { background: black; color: white; text-align: center; padding: 20px; }
+    .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+    .hamburger div { width:25px; height:3px; background:white; transition:0.3s; }
 
-    /* ===== Hamburger ===== */
-    .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
-    .hamburger div { width: 25px; height: 3px; background-color: white; transition: 0.3s; }
-
-    /* ===== Responsive ===== */
-    @media (max-width: 768px) {
-      nav ul { display: none; flex-direction: column; width: 100%; }
-      .hamburger { display: flex; }
-      nav.active ul { display: flex; }
-      header h1 { font-size: 20px; margin-bottom: 10px; }
-      #home h2 { font-size: 22px; }
-      #home p { font-size: 14px; }
-      h2.section-title { font-size: 22px; }
+    @media(max-width:768px){
+      nav ul { display:none; flex-direction:column; width:100%; }
+      .hamburger { display:flex; }
+      nav.active ul { display:flex; }
+      header h1 { font-size:20px; margin-bottom:10px; }
+      #home h2 { font-size:22px; }
+      #home p { font-size:14px; }
+      h2.section-title { font-size:22px; }
+      /* Show arrow toggle button */
+      .drop-toggle { display:inline-block; margin-left:5px; cursor:pointer; font-weight:bold; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ===== Header ===== -->
-  <header>
-    <h1>The Cusworth 10K</h1>
+<header>
+  <h1>The Cusworth 10K</h1>
 
-    <!-- Hamburger for mobile -->
-    <div class="hamburger" id="hamburger">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+  <div class="hamburger" id="hamburger">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 
-    <!-- Navigation -->
-    <nav id="nav">
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li class="dropdown">
-          <a href="javascript:void(0)" class="dropbtn">Events ▼</a>
-          <ul class="dropdown-content">
-            <li><a href="#race2024">2024 Race</a></li>
-            <li><a href="#results">Results</a></li>
-            <li><a href="#registration">Registration</a></li>
-          </ul>
-        </li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <nav id="nav">
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li class="dropdown">
+        <span>Events <span class="drop-toggle">▼</span></span>
+        <ul class="dropdown-content">
+          <li><a href="#race2024">2024 Race</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#registration">Registration</a></li>
+        </ul>
+      </li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
 
-  <!-- ===== Sections ===== -->
-  <section id="home">
-    <h2>Welcome to The Cusworth 10K Charity Run</h2>
-    <p>The Cusworth 10K is an annual charity event raising funds for local community projects. Join us to support a great cause, enjoy a fun run, and make a difference in your community!</p>
-    <a href="#registration" class="btn">Register Now</a>
-  </section>
+<section id="home">
+  <h2>Welcome to The Cusworth 10K Charity Run</h2>
+  <p>The Cusworth 10K is an annual charity event raising funds for local community projects. Join us to support a great cause, enjoy a fun run, and make a difference in your community!</p>
+  <a href="#registration" class="btn">Register Now</a>
+</section>
 
-  <section id="race2024">
-    <h2 class="section-title">2024 Race Details</h2>
-    <p>Information about the race, route, start times, and how to participate.</p>
-  </section>
+<section id="race2024">
+  <h2 class="section-title">2024 Race Details</h2>
+  <p>Information about the race, route, start times, and how to participate.</p>
+</section>
 
-  <section id="results">
-    <h2 class="section-title">Results</h2>
-    <p>See the winners and results from previous races.</p>
-  </section>
+<section id="results">
+  <h2 class="section-title">Results</h2>
+  <p>See the winners and results from previous races.</p>
+</section>
 
-  <section id="registration">
-    <h2 class="section-title">Registration</h2>
-    <p>Sign up for the next race here. Fill in your details and secure your spot!</p>
-  </section>
+<section id="registration">
+  <h2 class="section-title">Registration</h2>
+  <p>Sign up for the next race here. Fill in your details and secure your spot!</p>
+</section>
 
-  <section id="contact">
-    <h2 class="section-title">Contact Us</h2>
-    <p>Email: info@cusworth10k.org | Phone: 01234 567890</p>
-  </section>
+<section id="contact">
+  <h2 class="section-title">Contact Us</h2>
+  <p>Email: info@cusworth10k.org | Phone: 01234 567890</p>
+</section>
 
-  <footer>&copy; 2026 The Cusworth 10K Charity. All Rights Reserved.</footer>
+<footer>&copy; 2026 The Cusworth 10K Charity. All Rights Reserved.</footer>
 
-  <!-- ===== JavaScript ===== -->
-  <script>
-    // Dynamic header shrink
-    let lastScrollTop = 0;
-    const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      if (scrollTop > lastScrollTop && scrollTop > 150) {
-        header.classList.add('shrink');
-      } else if (scrollTop < lastScrollTop) {
-        header.classList.remove('shrink');
-      }
-      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+<script>
+  // Dynamic header
+  let lastScrollTop = 0;
+  const header = document.querySelector('header');
+  window.addEventListener('scroll', () => {
+    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if(scrollTop > lastScrollTop && scrollTop >150){ header.classList.add('shrink'); }
+    else if(scrollTop < lastScrollTop){ header.classList.remove('shrink'); }
+    lastScrollTop = scrollTop <=0?0:scrollTop;
+  });
+
+  // Hamburger toggle
+  const hamburger = document.getElementById('hamburger');
+  const nav = document.getElementById('nav');
+  hamburger.addEventListener('click', ()=>{ nav.classList.toggle('active'); });
+
+  // Mobile dropdown toggle by arrow only
+  document.querySelectorAll('.drop-toggle').forEach(arrow=>{
+    const dropdown = arrow.closest('.dropdown').querySelector('.dropdown-content');
+    dropdown.classList.remove('active'); // closed on load
+    arrow.addEventListener('click', e=>{
+      e.stopPropagation();
+      // close other dropdowns
+      document.querySelectorAll('.dropdown-content').forEach(menu=>{ if(menu!==dropdown) menu.classList.remove('active'); });
+      dropdown.classList.toggle('active');
     });
+  });
 
-    // Hamburger toggle
-    const hamburger = document.getElementById('hamburger');
-    const nav = document.getElementById('nav');
-    hamburger.addEventListener('click', () => { nav.classList.toggle('active'); });
-
-    // Mobile dropdown toggle (starts closed)
-    document.querySelectorAll('.dropbtn').forEach(btn => {
-      const dropdown = btn.nextElementSibling;
-      dropdown.classList.remove('active'); // Ensure closed on load
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        // Close other open dropdowns first
-        document.querySelectorAll('.dropdown-content').forEach(menu => {
-          if(menu !== dropdown) menu.classList.remove('active');
-        });
-        dropdown.classList.toggle('active'); // Toggle this one
-      });
-    });
-
-    // Close dropdown if clicking outside
-    document.addEventListener('click', () => {
-      document.querySelectorAll('.dropdown-content').forEach(menu => {
-        menu.classList.remove('active');
-      });
-    });
-  </script>
+  // Click outside closes dropdown
+  document.addEventListener('click', ()=>{
+    document.querySelectorAll('.dropdown-content').forEach(menu=>menu.classList.remove('active'));
+  });
+</script>
 
 </body>
 </html>
