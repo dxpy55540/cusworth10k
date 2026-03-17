@@ -1,84 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Cusworth 10K</title>
-  <style>
-    * { box-sizing: border-box; margin:0; padding:0; }
-    body { font-family: Arial, sans-serif; line-height: 1.6; scroll-behavior: smooth; overflow-x:hidden; }
-    a { text-decoration: none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Cusworth 10K</title>
+<style>
+* {box-sizing:border-box; margin:0; padding:0;}
+body {font-family: Arial, sans-serif; line-height:1.6; scroll-behavior:smooth; overflow-x:hidden;}
+a {text-decoration:none;}
 
-    header {
-      position: fixed;
-      top:0; width:100%;
-      background: linear-gradient(90deg, red, black, blue);
-      color:white;
-      padding:30px 40px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      transition: all 0.4s ease;
-      z-index:100;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      flex-wrap:wrap;
-    }
-    header h1 { font-size:28px; transition: font-size 0.4s ease; }
-    header.shrink { padding:10px 20px; opacity:0.95; }
-    header.shrink h1 { font-size:20px; }
+/* Header */
+header {
+  position: fixed; top:0; width:100%;
+  background: linear-gradient(90deg, red, black, blue);
+  color:white; padding:30px 40px;
+  display:flex; justify-content:space-between; align-items:center;
+  transition:all 0.4s ease; z-index:100;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2); flex-wrap:wrap;
+}
+header h1 { font-size:28px; transition: font-size 0.4s ease; }
+header.shrink { padding:10px 20px; opacity:0.95; }
+header.shrink h1 { font-size:20px; }
 
-    nav ul { list-style:none; display:flex; gap:15px; flex-wrap:wrap; }
-    nav a { color:white; font-weight:bold; padding:6px 10px; border-radius:4px; transition:background 0.3s; white-space:nowrap; }
-    nav a:hover { background: rgba(255,255,255,0.2); }
+nav ul { list-style:none; display:flex; gap:15px; flex-wrap:wrap; }
+nav a { color:white; font-weight:bold; padding:6px 10px; border-radius:4px; transition:background 0.3s; white-space:nowrap; }
+nav a:hover { background: rgba(255,255,255,0.2); }
 
-    .dropdown { position:relative; }
-    .dropdown-content {
-      display:none;
-      position:absolute;
-      background:white;
-      color:black;
-      top:100%;
-      left:0;
-      min-width:140px;
-      border-radius:6px;
-      overflow:hidden;
-      box-shadow:0 4px 8px rgba(0,0,0,0.2);
-      z-index:1000;
-    }
-    .dropdown-content li { padding:8px 10px; }
-    .dropdown-content a { color:black; display:block; }
+/* Dropdown */
+.dropdown { position:relative; }
+.dropdown-content {
+  display:none;
+  position:absolute;
+  top:100%; left:0;
+  background:white; color:black;
+  min-width:140px; border-radius:6px;
+  overflow:hidden; box-shadow:0 4px 8px rgba(0,0,0,0.2);
+  z-index:1000;
+}
+.dropdown-content li { padding:8px 10px; }
+.dropdown-content a { color:black; display:block; }
+.dropdown-content.active { display:block; }
 
-    /* Desktop hover */
-    @media(min-width:769px){
-      .dropdown:hover .dropdown-content { display:block; }
-    }
-    /* Mobile toggle active */
-    .dropdown-content.active { display:block; }
+/* Desktop hover */
+@media(min-width:769px){
+  .dropdown:hover .dropdown-content { display:block; }
+}
 
-    section { padding:100px 20px; max-width:1200px; margin:0 auto; }
-    #home { background:#f5f5f5; text-align:center; }
-    #home h2 { color:red; font-size:28px; margin-bottom:15px; }
-    #home p { max-width:600px; margin:0 auto; font-size:16px; }
-    .btn { display:inline-block; margin-top:20px; padding:10px 20px; background:black; color:white; font-weight:bold; border-radius:5px; transition:background 0.3s; }
-    .btn:hover { background:red; }
-    h2.section-title { text-align:center; color:black; margin-bottom:20px; font-size:26px; }
-    footer { background:black; color:white; text-align:center; padding:20px; }
+/* Sections */
+section { padding:100px 20px; max-width:1200px; margin:0 auto; }
+#home { background:#f5f5f5; text-align:center; }
+#home h2 { color:red; font-size:28px; margin-bottom:15px; }
+#home p { max-width:600px; margin:0 auto; font-size:16px; }
+.btn { display:inline-block; margin-top:20px; padding:10px 20px; background:black; color:white; font-weight:bold; border-radius:5px; transition:background 0.3s; }
+.btn:hover { background:red; }
+h2.section-title { text-align:center; color:black; margin-bottom:20px; font-size:26px; }
+footer { background:black; color:white; text-align:center; padding:20px; }
 
-    .hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
-    .hamburger div { width:25px; height:3px; background:white; transition:0.3s; }
+/* Hamburger */
+.hamburger { display:none; flex-direction:column; cursor:pointer; gap:5px; }
+.hamburger div { width:25px; height:3px; background:white; transition:0.3s; }
 
-    @media(max-width:768px){
-      nav ul { display:none; flex-direction:column; width:100%; }
-      .hamburger { display:flex; }
-      nav.active ul { display:flex; }
-      header h1 { font-size:20px; margin-bottom:10px; }
-      #home h2 { font-size:22px; }
-      #home p { font-size:14px; }
-      h2.section-title { font-size:22px; }
-      /* Show arrow toggle button */
-      .drop-toggle { display:inline-block; margin-left:5px; cursor:pointer; font-weight:bold; }
-    }
-  </style>
+/* Responsive */
+@media(max-width:768px){
+  nav ul { display:none; flex-direction:column; width:100%; }
+  nav.active ul { display:flex; }
+  header h1 { font-size:20px; margin-bottom:10px; }
+  #home h2 { font-size:22px; }
+  #home p { font-size:14px; }
+  h2.section-title { font-size:22px; }
+  .drop-toggle { display:inline-block; margin-left:5px; cursor:pointer; font-weight:bold; }
+}
+</style>
 </head>
 <body>
 
@@ -86,9 +78,7 @@
   <h1>The Cusworth 10K</h1>
 
   <div class="hamburger" id="hamburger">
-    <div></div>
-    <div></div>
-    <div></div>
+    <div></div><div></div><div></div>
   </div>
 
   <nav id="nav">
@@ -136,37 +126,35 @@
 <footer>&copy; 2026 The Cusworth 10K Charity. All Rights Reserved.</footer>
 
 <script>
-  // Dynamic header
-  let lastScrollTop = 0;
-  const header = document.querySelector('header');
-  window.addEventListener('scroll', () => {
-    let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    if(scrollTop > lastScrollTop && scrollTop >150){ header.classList.add('shrink'); }
-    else if(scrollTop < lastScrollTop){ header.classList.remove('shrink'); }
-    lastScrollTop = scrollTop <=0?0:scrollTop;
-  });
+// Shrinking header
+let lastScrollTop = 0;
+const header = document.querySelector('header');
+window.addEventListener('scroll', ()=>{
+  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+  if(scrollTop>lastScrollTop && scrollTop>150){ header.classList.add('shrink'); }
+  else if(scrollTop<lastScrollTop){ header.classList.remove('shrink'); }
+  lastScrollTop = scrollTop<=0?0:scrollTop;
+});
 
-  // Hamburger toggle
-  const hamburger = document.getElementById('hamburger');
-  const nav = document.getElementById('nav');
-  hamburger.addEventListener('click', ()=>{ nav.classList.toggle('active'); });
+// Hamburger toggle
+const hamburger = document.getElementById('hamburger');
+const nav = document.getElementById('nav');
+hamburger.addEventListener('click', ()=>{ nav.classList.toggle('active'); });
 
-  // Mobile dropdown toggle by arrow only
-  document.querySelectorAll('.drop-toggle').forEach(arrow=>{
-    const dropdown = arrow.closest('.dropdown').querySelector('.dropdown-content');
-    dropdown.classList.remove('active'); // closed on load
-    arrow.addEventListener('click', e=>{
-      e.stopPropagation();
-      // close other dropdowns
-      document.querySelectorAll('.dropdown-content').forEach(menu=>{ if(menu!==dropdown) menu.classList.remove('active'); });
-      dropdown.classList.toggle('active');
-    });
+// Mobile dropdown toggle
+document.querySelectorAll('.drop-toggle').forEach(arrow=>{
+  const dropdown = arrow.closest('.dropdown').querySelector('.dropdown-content');
+  dropdown.classList.remove('active'); // ensure closed on load
+  arrow.addEventListener('click', e=>{
+    e.stopPropagation();
+    // close other dropdowns
+    document.querySelectorAll('.dropdown-content').forEach(menu=>{ if(menu!==dropdown) menu.classList.remove('active'); });
+    dropdown.classList.toggle('active');
   });
+});
 
-  // Click outside closes dropdown
-  document.addEventListener('click', ()=>{
-    document.querySelectorAll('.dropdown-content').forEach(menu=>menu.classList.remove('active'));
-  });
+// Click outside closes dropdown
+document.addEventListener('click', ()=>{ document.querySelectorAll('.dropdown-content').forEach(menu=>menu.classList.remove('active')); });
 </script>
 
 </body>
