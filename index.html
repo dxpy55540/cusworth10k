@@ -7,7 +7,7 @@
   <style>
     /* ===== General styling ===== */
     * {
-      box-sizing: border-box; /* Prevent overflow */
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
@@ -16,7 +16,7 @@
       font-family: Arial, sans-serif;
       line-height: 1.6;
       scroll-behavior: smooth;
-      overflow-x: hidden; /* Prevent horizontal scrolling */
+      overflow-x: hidden;
     }
 
     a {
@@ -25,21 +25,33 @@
 
     /* ===== Header ===== */
     header {
-      background: linear-gradient(90deg, #cc1100, #000000, #89cff0);
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: linear-gradient(90deg, #ff0000, #000000, #89cff0);
       color: white;
-      padding: 15px 20px;
+      padding: 30px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      position: sticky;
-      top: 0;
+      transition: all 0.4s ease;
       z-index: 100;
-      flex-wrap: wrap; /* allow wrapping on small screens */
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      flex-wrap: wrap;
     }
 
     header h1 {
-      font-size: 24px;
+      font-size: 28px;
+      transition: font-size 0.4s ease;
+    }
+
+    header.shrink {
+      padding: 10px 20px;
+      opacity: 0.95;
+    }
+
+    header.shrink h1 {
+      font-size: 20px;
     }
 
     nav ul {
@@ -59,7 +71,7 @@
     }
 
     nav a:hover {
-      background: rgba(255, 255, 255, 0.2);
+      background: rgba(255,255,255,0.2);
     }
 
     /* ===== Dropdown ===== */
@@ -100,7 +112,7 @@
 
     /* ===== Sections ===== */
     section {
-      padding: 50px 20px;
+      padding: 100px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
@@ -195,7 +207,7 @@
       }
 
       .dropdown-content {
-        position: static; /* dropdown moves inline on mobile */
+        position: static;
         box-shadow: none;
       }
 
@@ -264,6 +276,26 @@
   <footer>
     &copy; 2026 The Cusworth 10K Charity. All Rights Reserved.
   </footer>
+
+  <!-- ===== JavaScript for Dynamic Header ===== -->
+  <script>
+    let lastScrollTop = 0;
+    const header = document.querySelector('header');
+
+    window.addEventListener('scroll', () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (scrollTop > lastScrollTop && scrollTop > 150) {
+        // Scrolling down → shrink header
+        header.classList.add('shrink');
+      } else if (scrollTop < lastScrollTop) {
+        // Scrolling up → expand header
+        header.classList.remove('shrink');
+      }
+
+      lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+  </script>
 
 </body>
 </html>
