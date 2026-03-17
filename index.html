@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Cusworth 10K</title>
 <style>
-* {box-sizing:border-box; margin:0; padding:0;}
-body {font-family: Arial, sans-serif; line-height:1.6; scroll-behavior:smooth; overflow-x:hidden;}
-a {text-decoration:none;}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family:Arial,sans-serif; line-height:1.6; scroll-behavior:smooth; overflow-x:hidden; }
+a { text-decoration:none; }
 
 /* Header */
 header {
-  position: fixed; top:0; width:100%;
-  background: linear-gradient(90deg, red, black, blue);
+  position:fixed; top:0; width:100%;
+  background:linear-gradient(90deg, red, black, blue);
   color:white; padding:30px 40px;
   display:flex; justify-content:space-between; align-items:center;
   transition:all 0.4s ease; z-index:100;
@@ -22,6 +22,7 @@ header h1 { font-size:28px; transition: font-size 0.4s ease; }
 header.shrink { padding:10px 20px; opacity:0.95; }
 header.shrink h1 { font-size:20px; }
 
+/* Nav */
 nav ul { list-style:none; display:flex; gap:15px; flex-wrap:wrap; }
 nav a { color:white; font-weight:bold; padding:6px 10px; border-radius:4px; transition:background 0.3s; white-space:nowrap; }
 nav a:hover { background: rgba(255,255,255,0.2); }
@@ -39,6 +40,8 @@ nav a:hover { background: rgba(255,255,255,0.2); }
 }
 .dropdown-content li { padding:8px 10px; }
 .dropdown-content a { color:black; display:block; }
+
+/* Active dropdown */
 .dropdown-content.active { display:block; }
 
 /* Desktop hover */
@@ -68,7 +71,6 @@ footer { background:black; color:white; text-align:center; padding:20px; }
   #home h2 { font-size:22px; }
   #home p { font-size:14px; }
   h2.section-title { font-size:22px; }
-  .drop-toggle { display:inline-block; margin-left:5px; cursor:pointer; font-weight:bold; }
 }
 </style>
 </head>
@@ -76,16 +78,13 @@ footer { background:black; color:white; text-align:center; padding:20px; }
 
 <header>
   <h1>The Cusworth 10K</h1>
-
-  <div class="hamburger" id="hamburger">
-    <div></div><div></div><div></div>
-  </div>
+  <div class="hamburger" id="hamburger"><div></div><div></div><div></div></div>
 
   <nav id="nav">
     <ul>
       <li><a href="#home">Home</a></li>
       <li class="dropdown">
-        <span>Events <span class="drop-toggle">▼</span></span>
+        <a href="#!" class="dropdown-toggle">Events ▼</a>
         <ul class="dropdown-content">
           <li><a href="#race2024">2024 Race</a></li>
           <li><a href="#results">Results</a></li>
@@ -128,33 +127,46 @@ footer { background:black; color:white; text-align:center; padding:20px; }
 <script>
 // Shrinking header
 let lastScrollTop = 0;
-const header = document.querySelector('header');
+const headerEl = document.querySelector('header');
 window.addEventListener('scroll', ()=>{
-  let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-  if(scrollTop>lastScrollTop && scrollTop>150){ header.classList.add('shrink'); }
-  else if(scrollTop<lastScrollTop){ header.classList.remove('shrink'); }
-  lastScrollTop = scrollTop<=0?0:scrollTop;
+  let st = window.pageYOffset || document.documentElement.scrollTop;
+  if(st>lastScrollTop && st>150){ headerEl.classList.add('shrink'); }
+  else if(st<lastScrollTop){ headerEl.classList.remove('shrink'); }
+  lastScrollTop = st<=0?0:st;
 });
 
 // Hamburger toggle
 const hamburger = document.getElementById('hamburger');
 const nav = document.getElementById('nav');
-hamburger.addEventListener('click', ()=>{ nav.classList.toggle('active'); });
+hamburger.addEventListener('click', ()=> nav.classList.toggle('active') );
 
 // Mobile dropdown toggle
-document.querySelectorAll('.drop-toggle').forEach(arrow=>{
-  const dropdown = arrow.closest('.dropdown').querySelector('.dropdown-content');
-  dropdown.classList.remove('active'); // ensure closed on load
-  arrow.addEventListener('click', e=>{
-    e.stopPropagation();
-    // close other dropdowns
+document.querySelectorAll('.dropdown-toggle').forEach(toggle=>{
+  const dropdown = toggle.nextElementSibling;
+  dropdown.classList.remove('active'); // closed on load
+  toggle.addEventListener('click', e=>{
+    e.preventDefault(); // prevent default jump
+    e.stopPropagation(); // don't bubble
+    // close others
     document.querySelectorAll('.dropdown-content').forEach(menu=>{ if(menu!==dropdown) menu.classList.remove('active'); });
     dropdown.classList.toggle('active');
   });
 });
 
-// Click outside closes dropdown
+// Close dropdown clicking outside
 document.addEventListener('click', ()=>{ document.querySelectorAll('.dropdown-content').forEach(menu=>menu.classList.remove('active')); });
+
+// Smooth scroll for dropdown links
+document.querySelectorAll('.dropdown-content a, nav a').forEach(link=>{
+  link.addEventListener('click', e=>{
+    e.preventDefault();
+    const target = document.querySelector(link.getAttribute('href'));
+    if(target){ target.scrollIntoView({behavior:'smooth'}); }
+    // close mobile dropdown after click
+    document.querySelectorAll('.dropdown-content').forEach(menu=>menu.classList.remove('active'));
+    if(nav.classList.contains('active')) nav.classList.remove('active');
+  });
+});
 </script>
 
 </body>
