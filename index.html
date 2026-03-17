@@ -15,7 +15,7 @@
       position: fixed;
       top: 0;
       width: 100%;
-      background: linear-gradient(90deg, red, black, blue); /* Updated gradient */
+      background: linear-gradient(90deg, red, black, blue);
       color: white;
       padding: 30px 40px;
       display: flex;
@@ -28,29 +28,14 @@
     }
 
     header h1 { font-size: 28px; transition: font-size 0.4s ease; }
-
     header.shrink { padding: 10px 20px; opacity: 0.95; }
     header.shrink h1 { font-size: 20px; }
 
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 15px;
-      flex-wrap: wrap;
-    }
-
-    nav a {
-      color: white;
-      font-weight: bold;
-      padding: 6px 10px;
-      border-radius: 4px;
-      transition: background 0.3s;
-      white-space: nowrap;
-    }
-
+    nav ul { list-style: none; display: flex; gap: 15px; flex-wrap: wrap; }
+    nav a { color: white; font-weight: bold; padding: 6px 10px; border-radius: 4px; transition: background 0.3s; white-space: nowrap; }
     nav a:hover { background: rgba(255,255,255,0.2); }
 
-    /* ===== Dropdowns ===== */
+    /* ===== Dropdown ===== */
     .dropdown { position: relative; }
     .dropdown-content {
       display: none;
@@ -86,7 +71,7 @@
     h2.section-title { text-align: center; color: black; margin-bottom: 20px; font-size: 26px; }
     footer { background: black; color: white; text-align: center; padding: 20px; }
 
-    /* ===== Mobile Hamburger Menu ===== */
+    /* ===== Hamburger ===== */
     .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
     .hamburger div { width: 25px; height: 3px; background-color: white; transition: 0.3s; }
 
@@ -100,7 +85,6 @@
       #home p { font-size: 14px; }
       h2.section-title { font-size: 22px; }
     }
-
   </style>
 </head>
 <body>
@@ -182,12 +166,17 @@
     const nav = document.getElementById('nav');
     hamburger.addEventListener('click', () => { nav.classList.toggle('active'); });
 
-    // Mobile dropdown toggle
+    // Mobile dropdown toggle (starts closed)
     document.querySelectorAll('.dropbtn').forEach(btn => {
+      const dropdown = btn.nextElementSibling;
+      dropdown.classList.remove('active'); // Ensure closed on load
       btn.addEventListener('click', e => {
         e.stopPropagation();
-        const dropdown = btn.nextElementSibling;
-        dropdown.classList.toggle('active');
+        // Close other open dropdowns first
+        document.querySelectorAll('.dropdown-content').forEach(menu => {
+          if(menu !== dropdown) menu.classList.remove('active');
+        });
+        dropdown.classList.toggle('active'); // Toggle this one
       });
     });
 
