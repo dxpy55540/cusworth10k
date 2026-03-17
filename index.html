@@ -1,170 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THE cusworth 10k</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cusworth 10K</title>
+  <style>
+    /* ===== Header styling ===== */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
 
-<style>
-body{
-    font-family: Arial, sans-serif;
-    margin:0;
-    background:#000000;
-}
+    header {
+      background: linear-gradient(90deg, #1e3c72, #2a5298, #6dd5ed); /* 3-color gradient */
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
 
-header{
-    background:#008ECC;
-    color:white;
-    padding:20px;
-    text-align:center;
-}
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
 
-nav{
-    background:#c30010;
-    padding:10px;
-    text-align:center;
-}
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 20px;
+      margin: 0;
+      padding: 0;
+    }
 
-nav a{
-    color:white;
-    margin:0 15px;
-    text-decoration:none;
-    font-weight:bold;
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 8px 12px;
+      border-radius: 4px;
+      transition: background 0.3s;
+    }
 
-section{
-    padding:40px;
-    max-width:900px;
-    margin:auto;
-}
+    nav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-.hero{
-    background:#ffffff;
-    text-align:center;
-    padding:60px 20px;
-}
+    /* ===== Dropdown Menu ===== */
+    .dropdown {
+      position: relative;
+    }
 
-.hero h1{
-    font-size:40px;
-}
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: white;
+      color: black;
+      top: 100%;
+      left: 0;
+      min-width: 150px;
+      border-radius: 6px;
+      overflow: hidden;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
 
-.btn{
-    background:#2e8b57;
-    color:white;
-    padding:12px 20px;
-    border:none;
-    text-decoration:none;
-    border-radius:5px;
-}
+    .dropdown-content li {
+      padding: 10px;
+    }
 
-.card{
-    background:white;
-    padding:25px;
-    margin:20px 0;
-    border-radius:8px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
-}
+    .dropdown-content a {
+      color: black;
+      display: block;
+    }
 
-input, textarea{
-    width:100%;
-    padding:10px;
-    margin:10px 0;
-}
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
 
-footer{
-    background:#222;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-</style>
-
+    .dropdown-content li:hover {
+      background-color: #eee;
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-  <h1>The Cusworth 10K</h1>
+  <header>
+    <h1>The Cusworth 10K</h1>
 
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li class="dropdown">
-        <a href="#">Events</a>
-        <ul class="dropdown-content">
-         <li><a href="#">2024 Race</a></li>
-        <li><a href="#">Results</a></li>
-        </ul>
-      </li>
-      <li><a href="#">Contact</a></li>
-    </ul>
-  </nav>
-</header>
-
-<nav>
-<a href="#about">About</a>
-<a href="#donate">Donate</a>
-<a href="#volunteer">Volunteer</a>
-<a href="#contact">Contact</a>
-</nav>
-
-<section class="hero">
-<h1>Together We Can Make a Difference</h1>
-<p>Your support helps people in need.</p>
-<a class="btn" href="#donate">Donate Now</a>
-</section>
-
-<section id="about">
-<div class="card">
-<h2>About Us</h2>
-<p>The cusworth 10k is dedicated to helping the help for heros charity inorder</p>
-</div>
-</section>
-
-<section id="donate">
-<div class="card">
-<h2>Donate</h2>
-<p>Your donations help fund our programs and support those in need.</p>
-<a href="https://example.com/donate" class="btn">Donate Securely</a>
-</div>
-</section>
-
-<section id="volunteer">
-<div class="card">
-<h2>Volunteer</h2>
-<p>Want to help? Join our amazing volunteers!</p>
-
-<form>
-<input type="text" placeholder="Your Name" required>
-<input type="email" placeholder="Email" required>
-<textarea placeholder="Why do you want to volunteer?"></textarea>
-<a href="https://example.com/apply" class="btn">Apply here</a>
-
-</form>
-
-</div>
-</section>
-
-<section id="contact">
-<div class="card">
-<h2>Contact Us</h2>
-
-<form id="contactForm">
-  <input type="text" id="name" placeholder="Name" required>
-  <input type="email" id="email" placeholder="Email" required>
-  <textarea id="message" placeholder="Your Message" required></textarea>
-  <a href="https://example.com/contact" class="btn">Contact Us</a>
-
-</form>
-
-<p id="status"></p>
-
-</div>
-</section>
-
-<footer>
-<p>© 2026 The Cusworth 10k  | All Rights Reserved</p>
-</footer>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li class="dropdown">
+          <a href="#">Events ▼</a>
+          <ul class="dropdown-content">
+            <li><a href="#">2024 Race</a></li>
+            <li><a href="#">Results</a></li>
+            <li><a href="#">Registration</a></li>
+          </ul>
+        </li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
 </body>
 </html>
